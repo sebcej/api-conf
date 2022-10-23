@@ -1,0 +1,31 @@
+{
+  "name": "fetch-api-wrapper",
+  "version": "0.0.1",
+  "description": "Dead simple container for fetch libraries",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebcej/fetch-api-wrapper.git"
+  },
+  "keywords": [
+    "fetch",
+    "axios",
+    "wrapper",
+    "api",
+    "api",
+    "manager",
+    "self-contained"
+  ],
+  "author": "Sebastjan Cej @sebcej",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebcej/fetch-api-wrapper/issues"
+  },
+  "homepage": "https://github.com/sebcej/fetch-api-wrapper#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0"
+  }
+}
