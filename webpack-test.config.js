@@ -9,6 +9,5 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'main.js',
     library: 'api_conf',
-    libraryTarget: 'umd'
   }
 }
