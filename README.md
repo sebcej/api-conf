@@ -79,6 +79,32 @@ const response = await saveUserData({
 
 ```
 
+## Error management
+
+With async-await a catch is usually needed in order to manage request errors. With this library we can change this requirement by using the `onError` callback.
+
+This functionality is available for `declareApi` and `createApiSource` functions.
+
+The single route onError callback will have priority over the global one.
+The fallback remains always the throwed exception 
+
+## Example
+
+```javascript
+[...]
+
+export const getUserData = declareApi({
+    method: 'GET',
+    url: 'url',
+    onError: e => ({
+        success: false,
+        error: e.response.data
+    }) // This object will be returned as response
+})
+
+[...]
+```
+
 ## Test & build
 
 ```
