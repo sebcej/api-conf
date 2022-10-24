@@ -38,8 +38,10 @@ import declareApi from 'api.js'
 export const getUserData = declareApi({
     method: 'GET',
     url: id => `user/${id}/account`,
-    headers: {
-        'X-Custom-Route-Header': 'custom-header-data'
+    config: {
+        headers: {
+            'X-Custom-Route-Header': 'custom-header-data'
+        }
     }
 })
 
