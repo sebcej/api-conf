@@ -4,7 +4,13 @@
 
 ___api-conf___ is a wrapper library that allows to preconfigure all the fetch routes and use them with only the route itself as dependency.
 
-This way a project can have all the api logic placed in a single location, simplifying mantenibility.
+This way a project can have all the api logic placed in a single location, simplifying maintainability.
+
+## Installation
+
+```
+npm i api-conf
+```
 
 ## Example
 
@@ -73,9 +79,12 @@ const response = await saveUserData({
 
 ```
 
-## Build
+## Test & build
 
 ```
 npm i
+
+npm test
+
 npm run build
 ```
