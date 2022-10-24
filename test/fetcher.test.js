@@ -52,4 +52,19 @@ describe('fetchData', function () {
         expect(fetcher.called)
         expect(fetcher.calledWithMatch({...config, url: 'newurl'}))
     })
+
+    it('Should perform fetch normally without config', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+        const config = {
+            method: 'GET',
+            url: 'test'
+        }
+
+        const response = await fetchData(fetcher, undefined, config, undefined)
+
+        expect(response).to.have.property('test')
+
+        expect(fetcher.called)
+        expect(fetcher.calledWithMatch({...config, url: 'newurl'}))
+    })
 })
