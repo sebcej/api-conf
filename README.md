@@ -72,3 +72,10 @@ const response = await saveUserData({
 })
 
 ```
+
+## Build
+
+```
+npm i
+npm run build
+```

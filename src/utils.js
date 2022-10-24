@@ -1,6 +1,6 @@
-export async function parseIfAvailable(param, fallback = null, ...args) {
+export function parseIfAvailable(param, fallback = null, ...args) {
     if (param && param instanceof Function) {
-        return param(...args)
+        return param(...args) || fallback
     } else if (fallback !== null) {
         return fallback
     }
