@@ -1,6 +1,6 @@
 import { parseIfAvailable } from "./utils"
 
-export async function fetchData(fetcher, fetcherConfig, routeConfig, initialData) {
+export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, initialData = {}) {
     const data = parseIfAvailable(routeConfig.parseRequestData, initialData, initialData, routeConfig, fetcherConfig)
 
     // Create main configuration with default values.
