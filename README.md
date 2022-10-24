@@ -1,8 +1,8 @@
-# fetch-api-wrapper
+# api-conf
 
 ## Dead simple self-contained preconfigurator for fetch libraries
 
-___fetch-api-wrapper___ is a wrapper library that allows to preconfigure all the fetch routes and use them with only the route itself as dependency.
+___api-conf___ is a wrapper library that allows to preconfigure all the fetch routes and use them with only the route itself as dependency.
 
 This way a project can have all the api logic placed in a single location, simplifying mantenibility.
 
@@ -13,7 +13,7 @@ This way a project can have all the api logic placed in a single location, simpl
 `api.js`
 ```javascript
 import axios from 'axios'
-import createApiSource from 'fetch-api-wrapper'
+import createApiSource from 'api-conf'
 
 /**
  * We can use anything we want as fetcher

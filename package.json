@@ -1,7 +1,7 @@
 {
-  "name": "fetch-api-wrapper",
+  "name": "api-conf",
   "version": "0.0.1",
-  "description": "Dead simple container for fetch libraries",
+  "description": "Dead simple self-contained api configurator for fetch libraries",
   "main": "./dist/main.js",
   "scripts": {
     "build": "webpack",
