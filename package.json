@@ -1,6 +1,6 @@
 {
   "name": "api-conf",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Dead simple self-contained api configurator for fetch libraries",
   "main": "./dist/main.js",
   "scripts": {
