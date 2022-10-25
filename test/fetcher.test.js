@@ -156,4 +156,36 @@ describe('fetchData', function () {
         expect(throwed).to.be.false
         expect(response).to.have.property('success')
     })
+
+    it('Should parse url', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+        const config = {
+            method: 'GET',
+            url: params => `test/${params.id}`
+        }
+
+        const response = await fetchData(fetcher, undefined, config, {id: 10})
+
+        expect(response).to.have.property('test')
+
+        expect(fetcher.called)
+        expect(fetcher.getCall(0).args[0]).to.nested.include({url: 'test/10'})
+    })
+
+    it('Should merge config data and passed data', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+        const config = {
+            method: 'POST',
+            url: `test`,
+            data: {
+                type: 'user'
+            }
+        }
+
+        await fetchData(fetcher, undefined, config, {id: 10})
+
+        expect(fetcher.called)
+        expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.type')
+        expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.id')
+    })
 })

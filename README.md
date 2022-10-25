@@ -12,7 +12,7 @@ This way a project can have all the api logic placed in a single location, simpl
 npm i api-conf
 ```
 
-## Example
+## Usage
 
 ### Let's prepare the library
 
@@ -54,7 +54,10 @@ export const getUserData = declareApi({
 export const saveUserData = declareApi({
     method: 'POST',
     url: 'user/account',
-    config:{
+    data: { // A data param can be added in config phase. This object will be merged automatically with the one passed on request
+        userType: 'tester'
+    },
+    config: { // The custom config attribute will be directly merged to fetcher config, so it supports all the fetcher (ex. axios) params
         headers: {}
     },
     parseRequestData: data => ({...data, isTest: true}),
@@ -64,7 +67,7 @@ export const saveUserData = declareApi({
 ```
 
 ### And then use it with plain functions
-We don't need to know where and how the data is being fetched or saved
+We don't need to know where and how the data is being fetched from or saved
 
 `usermanager.js`
 ```javascript
@@ -88,7 +91,7 @@ This functionality is available for `declareApi` and `createApiSource` functions
 The single route onError callback will have priority over the global one.
 The fallback remains always the throwed exception 
 
-## Example
+### Example
 
 ```javascript
 [...]
