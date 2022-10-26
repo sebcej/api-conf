@@ -54,10 +54,10 @@ export const getUserData = declareApi({
 export const saveUserData = declareApi({
     method: 'POST',
     url: 'user/account',
-    data: { // A data param can be added in config phase. This object will be merged automatically with the one passed on request
+    data: { // Data param can be added in config phase. This object will be merged with the one passed on request
         userType: 'tester'
     },
-    config: { // The custom config attribute will be directly merged to fetcher config, so it supports all the fetcher (ex. axios) params
+    config: { // Custom config attributes will be directly merged to fetcher config, so it supports all the fetcher (ex. axios) params
         headers: {}
     },
     parseRequestData: data => ({...data, isTest: true}),
@@ -90,7 +90,7 @@ The documentation is created by using `axios` as fetcher
 
 The `api-conf` instance can be created by calling `createApiSource` with two params:
 
-* `apiConf` - The axios object or the axios pre-configured instance. see [this](https://axios-http.com/docs/instance) for reference
+* `apiConf` - The axios object or the axios pre-configured instance. see [this](https://axios-http.com/docs/req_config) for reference
 * `fetcherConfig` - Fetcher main configuration. This object will change the library behavior globally. Available callbacks are:
     * `beforeRequest` - Called immediately before the request, after the single route modifications has been applied
     * `afterResponse` - Last callback after all modifications to the data has been applied by the single route modifi
@@ -115,23 +115,6 @@ After route declaration we can finally perform all our API calls directly, witho
 
 ```javascript
 const response = getUser(10)
-```
-
-### Example
-
-```javascript
-[...]
-
-export const getUserData = declareApi({
-    method: 'GET',
-    url: 'url',
-    onError: e => ({
-        success: false,
-        error: e.response.data
-    }) // This object will be returned as response
-})
-
-[...]
 ```
 
 ## Test & build
