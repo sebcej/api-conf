@@ -1,7 +1,7 @@
 {
   "name": "api-conf",
-  "version": "0.1.0",
-  "description": "Dead simple self-contained api configurator for fetch libraries",
+  "version": "0.2.0",
+  "description": "Dead simple self-contained rest client",
   "main": "./dist/main.js",
   "scripts": {
     "build": "webpack",
