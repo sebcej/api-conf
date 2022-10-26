@@ -2,16 +2,16 @@ import {expect} from 'chai'
 import {parseIfAvailable} from "../src/utils"
 
 describe('parseIfAvailable', function () {
-    it('Should execute function without params', function () {
-        const result = parseIfAvailable(() => {
+    it('Should execute function without params', async function () {
+        const result = await parseIfAvailable(() => {
             return true
         }, null)
 
         expect(result).to.equal(true)
     })
 
-    it('Should execute function with passing params', function () {
-        const result = parseIfAvailable((firstParam, secondParam) => {
+    it('Should execute function with passing params', async function () {
+        const result = await parseIfAvailable((firstParam, secondParam) => {
             return {
                 firstParam,
                 secondParam
@@ -22,26 +22,26 @@ describe('parseIfAvailable', function () {
         expect(result.secondParam).to.equal(true)
     })
 
-    it('Should return value if not function', function () {
-        const result = parseIfAvailable("test")
+    it('Should return value if not function', async function () {
+        const result = await parseIfAvailable("test")
 
         expect(result).to.equal("test")
     })
 
-    it('Should return undefined if empty', function () {
-        const result = parseIfAvailable(undefined, null)
+    it('Should return undefined if empty', async function () {
+        const result = await parseIfAvailable(undefined, null)
 
         expect(result).to.equal(undefined)
     })
 
-    it('Should return fallback if empty', function () {
-        const result = parseIfAvailable(undefined, "fallback")
+    it('Should return fallback if empty', async function () {
+        const result = await parseIfAvailable(undefined, "fallback")
 
         expect(result).to.equal("fallback")
     })
 
-    it('Should return fallback if function returns empty', function () {
-        const result = parseIfAvailable(() => undefined, "fallback")
+    it('Should return fallback if function returns empty', async function () {
+        const result = await parseIfAvailable(() => undefined, "fallback")
 
         expect(result).to.equal("fallback")
     })

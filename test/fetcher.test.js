@@ -36,6 +36,24 @@ describe('fetchData', function () {
         expect(fetcher.getCall(0).args[0]).to.include(config)
     })
 
+    it('Should parse returned async value', async function () {
+        const fetcher = sinon.fake.returns({ test: { nested: true } });
+        const config = {
+            method: 'GET',
+            url: 'test'
+        }
+
+        const response = await fetchData(fetcher, {
+            afterResponse: async data => new Promise((s, f) => s(data.test))
+        }, config, {})
+
+        expect(response).to.not.have.property('test')
+        expect(response).to.have.property('nested')
+
+        expect(fetcher.called)
+        expect(fetcher.getCall(0).args[0]).to.include(config)
+    })
+
     it('Should replace beforeRequest', async function () {
         const fetcher = sinon.fake.returns({ test: true });
         const config = {
