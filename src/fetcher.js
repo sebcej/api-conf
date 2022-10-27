@@ -29,9 +29,9 @@ export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, i
         response = await fetcher(conf)
     } catch (e) {
         if (routeConfig.onError) {
-            response = await parseIfAvailable(routeConfig.onError, null, e, conf, fetcherConfig)
+            return parseIfAvailable(routeConfig.onError, null, e, conf, fetcherConfig)
         } else if (fetcherConfig.onError) {
-            response = await parseIfAvailable(fetcherConfig.onError, null, e, conf, fetcherConfig)
+            return parseIfAvailable(fetcherConfig.onError, null, e, conf, fetcherConfig)
         } else {
             throw e
         }

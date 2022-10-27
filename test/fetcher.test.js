@@ -156,7 +156,8 @@ describe('fetchData', function () {
         const fetcher = sinon.fake.throws();
         const config = {
             method: 'GET',
-            url: 'test'
+            url: 'test',
+            parseResponseData: data => ({anotherResponse: true})
         }
         const fetcherConfig = {
             onError: () => ({ success: false })
