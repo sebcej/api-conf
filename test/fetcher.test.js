@@ -207,4 +207,32 @@ describe('fetchData', function () {
         expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.type')
         expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.id')
     })
+
+    it('Should be able to call itself', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+
+        let recalled = false;
+
+        const config = {
+            method: 'POST',
+            url: `test`,
+            data: {
+                type: 'user'
+            },
+            parseResponseData: async function (response, {recall}) {
+                if (!recalled) {
+                    recalled = true
+                    return recall()
+                }
+            }
+        }
+
+        await fetchData(fetcher, undefined, config, {id: 10})
+
+        expect(fetcher.callCount).to.equal(2)
+        expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.type')
+        expect(fetcher.getCall(0).args[0]).to.have.nested.property('data.id')
+        expect(fetcher.getCall(1).args[0]).to.have.nested.property('data.type')
+        expect(fetcher.getCall(1).args[0]).to.have.nested.property('data.id')
+    })
 })

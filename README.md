@@ -109,6 +109,8 @@ The single route is created by using the instance created by above function. Ava
 * `parseResponseData` - When data is returned we can parse it in order to return it in different format
 * `onError` - Called when an exception is throwed during api call.
 
+All the callbacks does have the informations about the data and configs that are available at that moment
+
 ### Api call usage
 
 After route declaration we can finally perform all our API calls directly, without thinking about urls and request/data parsing. The library will pass the data to url if is a function or to data if is not a GET
