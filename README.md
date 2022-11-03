@@ -111,6 +111,22 @@ The single route is created by using the instance created by above function. Ava
 
 All the callbacks does have the informations about the data and configs that are available at that moment
 
+### Recaller
+
+Sometimes a api call must be redone because of external factors, such as JWT token that has expired or network errors.
+The `recall` function allows to redo ana pi call without changing its params
+
+```javascript
+export const saveUserData = declareApi({
+    method: 'POST',
+    url: 'user/account',
+    onError: (e, {recall}) => {
+        ...
+        return recall()
+    }
+})
+```
+
 ### Api call usage
 
 After route declaration we can finally perform all our API calls directly, without thinking about urls and request/data parsing. The library will pass the data to url if is a function or to data if is not a GET
