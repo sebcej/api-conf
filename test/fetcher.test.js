@@ -235,4 +235,30 @@ describe('fetchData', function () {
         expect(fetcher.getCall(1).args[0]).to.have.nested.property('data.type')
         expect(fetcher.getCall(1).args[0]).to.have.nested.property('data.id')
     })
+
+    it('Should call the middleware', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+
+        let passed = false
+
+        const config = {
+            method: 'POST',
+            url: `test`,
+            data: {
+                type: 'user'
+            },
+        }
+
+        const mw = {
+            middleware: async (internalFetcher, config) => {
+                passed = true
+                return internalFetcher(config)
+            }
+        }
+
+        await fetchData(fetcher, mw, config, {id: 10})
+
+        expect(fetcher.callCount).to.equal(1)
+        expect(passed).to.equal(true)
+    })
 })
