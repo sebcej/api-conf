@@ -2,6 +2,7 @@ import { parseIfAvailable } from "./utils"
 
 export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, initialData) {
     const recall = () => fetchData(fetcher, fetcherConfig, routeConfig, initialData);
+    const callMiddleware = fetcherConfig.middleware ? fetcherConfig.middleware : async (fetcher, conf) => fetcher(conf) 
 
     // We merge data from config (fixed params) and initialData (passed on final function call)
     const mergedData = {
@@ -31,7 +32,7 @@ export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, i
     let response
 
     try {
-        response = await fetcher(conf)
+        response = await callMiddleware(fetcher, conf)
     } catch (e) {
         if (routeConfig.onError) {
             return parseIfAvailable(routeConfig.onError, null, e, conf, allReqInfo)

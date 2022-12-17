@@ -29,9 +29,10 @@ const apiConf = axios.create({
     baseUrl: 'https://example.com/api/'
 })
 
-export default const = createApiSource(apiConf, {
-    beforeRequest: req => {...}, // Manage the request before is sent to fetcher (ex. axios)
-    afterResponse: (response, config) => {...} // Manage the data response before is sent back to you
+export default createApiSource(apiConf, {
+    beforeRequest: req => {...}, // [optional] Manage the request before is sent to fetcher (ex. axios)
+    afterResponse: (response, config) => {...}, // [optional] Manage the data response before is sent back to you
+    middleware: (fetcher, conf) => {...} // [optional] allow to set a middleware with custom behavior.
 })
 ```
 
@@ -88,13 +89,16 @@ The documentation is created by using `axios` as fetcher
 
 ### Instance creation
 
-The `api-conf` instance can be created by calling `createApiSource` with two params:
+The `api-conf` instance can be created by calling `createApiSource` with following optional params:
 
 * `apiConf` - The axios object or the axios pre-configured instance. see [this](https://axios-http.com/docs/req_config) for reference
 * `fetcherConfig` - Fetcher main configuration. This object will change the library behavior globally. Available callbacks are:
     * `beforeRequest` - Called immediately before the request, after the single route modifications has been applied
     * `afterResponse` - Last callback after all modifications to the data has been applied by the single route modifi
     * `onError` - Called when an exception is throwed during api call. The single route error has the priority if present. If no error callback is present on both the route and fetcherConfig the default exception is throwed
+* `middleware` - Allows to completely customize the call of the fetcher function. Params:
+    * `fetcher` - Fetcher function that *must* be called
+    * `config` - The complete config ready to be used
 
 ### Route creation
 
@@ -114,7 +118,7 @@ All the callbacks does have the informations about the data and configs that are
 ### Recaller
 
 Sometimes a api call must be redone because of external factors, such as JWT token that has expired or network errors.
-The `recall` function allows to redo ana pi call without changing its params
+The `recall` function allows to redo an api call without changing its params
 
 ```javascript
 export const saveUserData = declareApi({
