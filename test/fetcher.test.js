@@ -261,4 +261,29 @@ describe('fetchData', function () {
         expect(fetcher.callCount).to.equal(1)
         expect(passed).to.equal(true)
     })
+
+    it('The url function must have all params', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+
+        let passed = false
+
+        const config = {
+            method: 'POST',
+            url: data => {
+                passed = data.id === 10
+                return 'test'
+            },
+            data: {
+                type: 'user'
+            },
+            parseRequestData: function (data) {
+                return data.form
+            }
+        }
+
+        await fetchData(fetcher, undefined, config, {id: 10, form: {test: 1}})
+
+        expect(fetcher.callCount).to.equal(1)
+        expect(passed).to.equal(true)
+    })
 })

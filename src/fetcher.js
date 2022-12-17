@@ -11,14 +11,14 @@ export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, i
     }
 
     // Call the request data parser (routeConfig) if present
-    const data = await parseIfAvailable(routeConfig.parseRequestData, mergedData, {mergedData, routeConfig, fetcherConfig})
+    const data = await parseIfAvailable(routeConfig.parseRequestData, mergedData, mergedData, {routeConfig, fetcherConfig})
     const allReqInfo = {routeConfig, data, fetcherConfig, recall}
 
     // Create main configuration with default values.
     // These values can be permanently changed with beforeRequest function
     const requestConfig = {
         method: routeConfig.method || 'GET',
-        url: await parseIfAvailable(routeConfig.url, null, data, allReqInfo),
+        url: await parseIfAvailable(routeConfig.url, null, mergedData, allReqInfo),
         data,
         ...routeConfig.config
     }
