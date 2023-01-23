@@ -1,14 +1,14 @@
-import { parseIfAvailable } from "./utils"
+import { parseIfAvailable, isObject } from "./utils"
 
 export async function fetchData(fetcher, fetcherConfig = {}, routeConfig = {}, initialData) {
     const recall = () => fetchData(fetcher, fetcherConfig, routeConfig, initialData);
     const callMiddleware = fetcherConfig.middleware ? fetcherConfig.middleware : async (fetcher, conf) => fetcher(conf) 
 
     // We merge data from config (fixed params) and initialData (passed on final function call)
-    const mergedData = {
+    const mergedData = isObject(initialData) ? {
         ...routeConfig.data,
         ...initialData
-    }
+    } : initialData
 
     // Call the request data parser (routeConfig) if present
     const data = await parseIfAvailable(routeConfig.parseRequestData, mergedData, mergedData, {routeConfig, fetcherConfig})

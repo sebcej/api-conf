@@ -7,3 +7,9 @@ export async function parseIfAvailable(param, fallback = null, ...args) {
 
     return param
 }
+
+export function isObject(obj) {
+    return typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    obj !== null
+}

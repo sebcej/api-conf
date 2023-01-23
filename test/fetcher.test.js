@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import {fetchData} from "../src/fetcher"
 
 describe('fetchData', function () {
-    it('Should perform fetch normally', async function () {
+    it('Should perform fetch normally with empty object', async function () {
         const fetcher = sinon.fake.returns({ test: true });
         const config = {
             method: 'GET',
@@ -11,6 +11,36 @@ describe('fetchData', function () {
         }
 
         const response = await fetchData(fetcher, {}, config, {})
+
+        expect(response).to.have.property('test')
+
+        expect(fetcher.called)
+        expect(fetcher.getCall(0).args[0]).to.nested.include(config)
+    })
+
+    it('Should perform fetch normally with empty param', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+        const config = {
+            method: 'GET',
+            url: 'test'
+        }
+
+        const response = await fetchData(fetcher, {}, config, undefined)
+
+        expect(response).to.have.property('test')
+
+        expect(fetcher.called)
+        expect(fetcher.getCall(0).args[0]).to.nested.include(config)
+    })
+
+    it('Should perform fetch normally with null param', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+        const config = {
+            method: 'GET',
+            url: 'test'
+        }
+
+        const response = await fetchData(fetcher, {}, config, null)
 
         expect(response).to.have.property('test')
 
@@ -282,6 +312,28 @@ describe('fetchData', function () {
         }
 
         await fetchData(fetcher, undefined, config, {id: 10, form: {test: 1}})
+
+        expect(fetcher.callCount).to.equal(1)
+        expect(passed).to.equal(true)
+    })
+
+    it('An entity different than object must be forwarded', async function () {
+        const fetcher = sinon.fake.returns({ test: true });
+
+        let passed = false
+
+        const config = {
+            method: 'POST',
+            url: data => {
+                passed = data === 10
+                return 'test'
+            },
+            parseRequestData: function (data) {
+                return data.form
+            }
+        }
+
+        await fetchData(fetcher, undefined, config, 10)
 
         expect(fetcher.callCount).to.equal(1)
         expect(passed).to.equal(true)
