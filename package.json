@@ -1,6 +1,6 @@
 {
   "name": "api-conf",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Dead simple self-contained rest client",
   "main": "./dist/main.js",
   "scripts": {
